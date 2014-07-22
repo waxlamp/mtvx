@@ -1,0 +1,17 @@
+-Implement "jumping" around the trace.
+  -Implement protocol buffer mementos/transactions for vis objects.
+
+-Make all dependencies explicit in cmake config.
+  -TCLAP
+
+-[DONE] Finish implementing ReferenceTrace module.
+  -[DONE] Remove background message.
+  -[DONE] Read in XML file to instantiate region widgets.
+  -[DONE] Implement "fading trails"
+  -[DONE] Implement cache renderer.
+
+-[DONE] Implement color profiles.
+-[DONE] Place speed control dial and seek slider next to playback buttons.
+-[DONE] Put trace progress indicator in status bar.
+-[DONE] Remove mouse action messages to stdout.
+-[DONE] Implement Lentil module.

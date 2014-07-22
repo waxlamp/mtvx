@@ -1,0 +1,6 @@
+# Default MTV cache
+blocksize 32
+write_miss_policy WriteAllocate
+replacement_policy LRU
+level 8 2 WriteThrough
+level 16 4 WriteBack

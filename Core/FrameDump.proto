@@ -1,0 +1,143 @@
+package MTV.FrameDump;
+
+message FrameDumpHeader{
+  message FileContents{
+    required string path = 1;
+    optional string text = 2;
+  }
+
+  message SourceFile{
+    required uint32 index = 1;
+    required string path = 2;
+    optional string text = 3;
+  }
+
+  required string date = 1;
+  optional string trace_path = 2;
+  optional FileContents registration = 3;
+  optional FileContents cache_spec = 4;
+
+  required bool visit_count = 6;
+  required bool miss_count = 7;
+  required bool cache_set_utilization = 8;
+
+  repeated SourceFile source_file = 5;
+}
+
+message FrameDump{
+  // The location and color of a single glyph, identified by its id
+  // field and ghostliness level.
+  message Glyph{
+    // An id for the glyph - probably the address it represents in the
+    // traced program.
+    required uint64 id = 1;
+
+    // Encodes the ghostliness of the glyph - 0 means not a ghost, while
+    // 1 through whatever mean that its a ghost at that level of cache.
+    required uint32 ghost = 2 [default = 0];
+
+    // Cartesian coordinates for the glyph position.
+    required float x = 3;
+    required float y = 4;
+
+    // A pallette for the color of this glyph.
+    required uint32 color = 5;
+  }
+
+  // Used to encode special actions in animation, such as color or size
+  // changes.
+  message Activity{
+    enum ActivityType{
+      ColorPulseActivity = 0;
+      SizePulseActivity = 1;
+      ColorChangeActivity = 2;
+      PolarInterpolationActivity = 3;
+      LinearInterpolationActivity = 4;
+      BirthActivity = 5;
+      DeathActivity = 6;
+    }
+
+    enum SpecialColor{
+      CacheMissColor = 127;
+      WriteBackDirtyColor = 126;
+      WriteBackCleanColor = 125;
+      BlankColor = 124; // This should be the color RGB(0,0,0,0);
+    }
+
+    message ColorPulse{
+      optional uint32 color = 1;
+      optional float apex = 2 [default = 0.5];
+    }
+
+    message SizePulse{
+      optional float size = 1;
+      optional float apex = 2 [default = 0.5];
+    }
+
+    message ColorChange{
+      optional uint32 color = 1;
+    }
+
+    required ActivityType type = 1;
+
+    required uint64 id = 2;
+    required uint32 ghost = 3;
+
+    optional ColorPulse color_pulse = 4;
+    optional SizePulse size_pulse = 5;
+    optional ColorChange color_change = 6;
+  }
+
+  // Describes the position in source code of the frame.
+  message SourceCode{
+    required uint32 file = 1;
+    required uint32 line = 2;
+  }
+
+  message LineVisitCount{
+    message Count{
+      required uint32 file = 1;
+      required uint32 line = 2;
+      required uint32 count = 3;
+    }
+
+    repeated Count count = 1;
+  }
+
+  message LineMissCount{
+    message Count{
+      required uint32 file = 1;
+      required uint32 line = 2;
+      required uint32 misses = 3;
+      required uint32 total = 4;
+    }
+
+    repeated Count count = 1;
+  }
+
+  message CacheSetUtilization{
+    repeated float utilization = 1;
+  }
+
+  // These represent the glyph positions, as well as "special" changes
+  // they undergo.
+  repeated Glyph glyph = 1;
+  repeated Activity activity = 2;
+
+  // A vector of cache level temperatures.
+  repeated float temperature = 3;
+
+  // Source code orientation data (file(s) and line number(s)
+  // associated with this frame).
+  repeated SourceCode source_code = 4;
+
+  // Raw counts of visits to each line of source code.
+  optional LineVisitCount visit_count = 5;
+
+  // Counts of cache misses incurred at each line of source code,
+  // along with total cache operations.
+  optional LineMissCount miss_count = 6;
+
+  // Rates of cache set utilization.
+  optional CacheSetUtilization cache_set_utilization = 8;
+}

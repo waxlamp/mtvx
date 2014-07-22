@@ -1,0 +1,6 @@
+Qt 4.7
+Boost 1.46
+TinyXML 2.6
+Pin 2.8 (for aeon.so)
+protobuf 2.4
+tclap 1.2

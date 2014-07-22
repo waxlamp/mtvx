@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource>
+    <file>icons/ffwd-button.png</file>
+    <file>icons/last-track-button.png</file>
+    <file>icons/next-track-button.png</file>
+    <file>icons/pause-button.png</file>
+    <file>icons/play-button.png</file>
+    <file>icons/rewind-button.png</file>
+    <file>icons/stop-button.png</file>
+  </qresource>
+</RCC>

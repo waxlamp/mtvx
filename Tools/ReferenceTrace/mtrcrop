@@ -1,0 +1,47 @@
+#!/bin/sh
+
+gettmp()
+{
+    filename=`mktemp /tmp/linemap.XXXX`
+    echo $filename
+}
+
+cleanup()
+{
+    rm $grepfile
+    rm $mtrtxt
+}
+
+# Grab command line arguments.
+trace="$1"
+
+if [ -z $trace ]; then
+    echo "usage: mtrcrop <tracefile>" >&2
+    exit 1
+fi
+
+# Grab command prefix.
+prefix=`dirname $0`
+
+# Generate a tempfile to hold the grep results.
+grepfile=`gettmp`
+mtrtxt=`gettmp`
+
+trap "cleanup" INT TERM EXIT
+
+# Dump the Line records out, along with where they occur in the file
+# (and save a copy of this output to a temp file).
+$prefix/mtrcat $trace | tee $mtrtxt | grep -n LineNumber >$grepfile || exit 1
+
+# Get the line numbers for the first and last instances of Line
+# records.
+first=`head -n 1 $grepfile | cut -d ':' -f 1`
+last=`tail -n 1 $grepfile | cut -d ':' -f 1`
+
+if [ -z $first -o -z $last ]; then
+    echo "error: no LineNumber records in trace file." >&2
+    exit 1
+fi
+
+# Strip the appropriate portions of the trace file away.
+head -n $last $mtrtxt | tail -n +$first

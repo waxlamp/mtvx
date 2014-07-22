@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<Cache blocksize="1" write_miss_policy="WriteAllocate" replacement_policy="LRU">
+  <CacheLevel
+      num_blocks="8"
+      associativity="1"
+      write_policy="WriteThrough"
+      />
+</Cache>

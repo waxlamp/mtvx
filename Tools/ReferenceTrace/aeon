@@ -1,0 +1,49 @@
+#!/bin/sh
+
+cleanup()
+{
+    rm ${linemap}
+}
+
+
+# grab command line arguments.
+#
+# The executable.
+base="$1"
+exe="$2"
+stackinfo="$3"
+
+if [ -z ${exe} ]; then
+    echo "usage: aeon <trace-output-name> <executable> <stackinfo> [<arg1> ... <argN>]" >&2
+    exit 1
+fi
+
+# And the arguments to the executable.
+shift 3
+args=$@
+
+# Get the directory prefix.
+prefix=`dirname $0`
+
+# Form some filenames.
+# base=`basename ${exe}`
+trace=${base}
+linemap=${base}.linemap
+
+# Remove tempfiles on exit/interruption.
+# trap "cleanup" INT TERM EXIT
+
+# Generate the linemap.
+echo -n "generating linemap..." >&2
+$prefix/linemap.sh ${exe} >$linemap || exit 1
+echo done
+
+# Generate the reference trace.
+if [ "$stackinfo" != "no-stack" ]; then
+    stackarg="-s $stackinfo"
+fi
+
+echo "generating reference trace... launching target program..." >&2
+# LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${prefix}/../lib pin -t ${prefix}/aeon.so -e gzip -o $trace -l $linemap -- ${exe} ${args} || exit 1
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${prefix}/../lib setarch x86_64 -R pin -t ${prefix}/aeon.so ${stackarg} -e raw -o $trace -l $linemap -- ${exe} ${args} || exit 1
+echo done

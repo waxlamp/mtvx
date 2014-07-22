@@ -1,0 +1,19 @@
+package MTV.BlockStream;
+
+message BlockStreamHeader{
+  // A magic phrase to identify the data type.
+  optional string magicphrase = 1;
+
+  // The cache blocksize for this block stream.
+  optional uint32 blocksize = 2;
+
+  // A struct expressing where the data for a given block stream
+  // begins (later in the data file).
+  message BlockStream{
+    optional uint64 block_addr = 1;
+    optional uint64 offset = 2;
+  }
+
+  // The list of block streams appearing in this file.
+  repeated BlockStream blockstream = 3;
+}

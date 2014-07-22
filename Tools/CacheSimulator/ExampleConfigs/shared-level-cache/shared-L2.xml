@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<CacheSet blocksize="32">
+  <SharedCacheLevels>
+    <CacheLevel name="shared L2"
+                num_blocks="16"
+                associativity="4"
+                write_policy="WriteBack" />
+  </SharedCacheLevels>
+
+  <Cache filename="cache1.xml" />
+  <Cache filename="cache2.xml" />
+</CacheSet>

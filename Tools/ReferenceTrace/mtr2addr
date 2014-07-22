@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat | grep -v LineNumber | cut -d ' ' -f 2 | sed 's/)//' | xargs printf '%u\n'

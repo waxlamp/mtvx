@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Grab the name of the executable.
+out="$1"
+exe="$2"
+shift 2
+
+# Grab the rest of the arguments.
+exe_args="$@"
+
+# Error out if needed.
+if [ -z $exe ]; then
+    echo "usage: mtrdata <output-name> <executable> [<arg1> ... <argN>]" >&2
+    exit 1
+fi
+
+# Capture the script directory.
+prefix=`dirname $0`
+
+# Run the executable and capture a trace.
+${prefix}/aeon $out $exe $exe_args || exit 1
+
+# Crop the trace records (by line number information) into a text
+# format.
+${prefix}/mtrcrop ${out}.mtr >${out}-cropped.txt || exit 1
+
+# Create an address trace from the text trace.
+grep -v LineNumber ${out}-cropped.txt | cut -d ' ' -f 2 | sed 's/)//' | xargs printf "%lu\n" >${out}-addr.txt

@@ -1,0 +1,25 @@
+package MTV.Marino;
+
+import "Color.proto";
+
+message RegionRendererWarm{
+  // Each stripe is made up of a data color and a cache color.
+  message Stripe{
+    optional ColorCold data = 1;
+    optional ColorCold cache = 2;
+  }
+  repeated Stripe stripe = 1;
+}
+
+message RegionRendererDelta{
+  // Each record appearing describes a change to a single stripe.
+  message Delta{
+    required uint32 index = 1;
+    optional ColorCold data_before = 2;
+    optional ColorCold data_after = 3;
+    optional ColorCold cache_before = 4;
+    optional ColorCold cache_after = 5;
+  }
+
+  repeated Delta delta = 1;
+}

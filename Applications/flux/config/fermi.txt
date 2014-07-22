@@ -1,0 +1,6 @@
+# Fermi-like cache (Aila and Kerras 2010, first paragraph of Section 2)
+blocksize 128
+write_miss_policy WriteAllocate
+replacement_policy LRU
+level 384 64 WriteBack
+level 6144 384 WriteBack

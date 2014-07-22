@@ -1,0 +1,6 @@
+# A smaller, "thin" version of default.txt (with single-byte lines).
+blocksize 1
+write_miss_policy WriteAllocate
+replacement_policy LRU
+level 8 1 WriteThrough
+# level 4 4 WriteBack

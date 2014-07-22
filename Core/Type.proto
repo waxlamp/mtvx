@@ -1,0 +1,51 @@
+package MTV.Mithril;
+
+message TypeList{
+  repeated Type type = 1;
+}
+
+message Type{
+  // The name and id are common to every type.
+  required string name = 1;
+  required uint64 id = 2;
+
+  // Exactly one of the following must be present in the message.
+  optional BaseType base_type = 3;
+  optional ClassType class_type = 4;
+  optional TypedefType typedef_type = 5;
+  optional ConstType const_type = 6;
+  optional PointerType pointer_type = 7;
+  optional ReferenceType reference_type = 8;
+  optional ArrayType array_type = 9;
+
+  message BaseType{
+    required uint32 size = 1;
+  }
+
+  message ClassType{
+    required uint32 size = 1;
+  }
+
+  message TypedefType{
+    required uint64 ref = 1;
+  }
+
+  message ConstType{
+    required uint64 ref = 1;
+  }
+
+  message PointerType{
+    required uint32 size = 1;
+    required uint32 ref = 2;
+  }
+
+  message ReferenceType{
+    required uint32 size = 1;
+    required uint32 ref = 2;
+  }
+
+  message ArrayType{
+    required uint32 size = 1;
+    required uint32 ref = 2;
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<Cache blocksize="32" write_miss_policy="WriteAllocate">
+  <CacheLevel
+      num_blocks="16"
+      associativity="2"
+      write_policy="WriteThrough"
+      />
+
+  <CacheLevel
+      shared_name="shared L2"
+      />
+</Cache>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+
+<!-- This file is a hand-crafted region registration to go with the
+     array-walk program.  To make use of this, copy it somewhere, then
+     run array-walk, then copy the address it prints into the "base"
+     element of the "Array" region element. -->
+
+<registration>
+  <barriers num="0">
+    <base>0x0</base>
+  </barriers>
+
+  <messagespace>
+    <base>0x0</base>
+  </messagespace>
+
+  <regions num="1">
+    <region layout="array">
+      <title>Array</title>
+      <base> </base>
+      <size>128</size>
+      <type>4</type>
+    </region>
+  </regions>
+</registration>

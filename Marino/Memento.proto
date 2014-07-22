@@ -1,0 +1,30 @@
+package MTV.Marino;
+
+import "RegionRenderer.proto";
+
+message WarmMemento{
+  optional uint64 trace_index = 1;
+  enum Type{
+    REGION_RENDERER = 0;
+  }
+  optional Type type = 2;
+
+  // One of these fields will be set, according to the type field.
+  optional RegionRendererWarm region_renderer = 3;
+}
+
+message DeltaMemento{
+  optional uint64 trace_index = 1;
+
+  enum Type{
+    REGION_RENDERER = 0;
+  }
+  optional Type type = 2;
+
+  // TODO(choudhury): add a "module id" field as well.
+
+  optional int32 id = 3;
+
+  // One of these fields will be set, according to the type field.
+  optional RegionRendererDelta region_renderer = 4;
+}

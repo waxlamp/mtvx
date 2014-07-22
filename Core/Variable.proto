@@ -1,0 +1,35 @@
+package MTV.Mithril;
+
+message VariableList{
+  repeated Variable var = 1;
+}
+
+message Variable{
+  // Dwarf id.
+  required uint64 id = 1;
+
+  // Name within the program, and a reference to its type.
+  required string name = 2;
+  required uint64 type = 3;
+
+  // The filename and line number of declaration.
+  required string file = 4;
+  required uint32 line = 5;
+
+  // The range of program addresses within which the variable is
+  // active.
+  required uint64 low_pc = 6;
+  required uint64 high_pc = 7;
+
+  // Exactly one of the following must be present in the message.
+  optional StackLocation stack_location = 8;
+  optional AbsoluteLocation absolute_location = 9;
+
+  message StackLocation{
+    required sint32 offset = 1;
+  }
+
+  message AbsoluteLocation{
+    required uint32 address = 1;
+  }
+}

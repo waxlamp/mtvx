@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- This file describes the default cache used for MTV. -->
+
+<Cache blocksize="32" write_miss_policy="WriteAllocate" replacement_policy="ApproxOPT">
+  <CacheLevel
+      num_blocks="8"
+      associativity="2"
+      write_policy="WriteThrough"
+      />
+
+  <CacheLevel
+      num_blocks="16"
+      associativity="4"
+      write_policy="WriteBack"
+      />
+</Cache>

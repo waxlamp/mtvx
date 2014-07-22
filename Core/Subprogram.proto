@@ -1,0 +1,25 @@
+package MTV.Mithril;
+
+message Subprogram{
+  required string name = 1;
+  required uint64 low_pc = 2;
+  required uint64 high_pc = 3;
+
+  required Loclist loclist = 4;
+}
+
+message SubprogramList{
+  repeated Subprogram subprogram = 1;
+}
+
+message Locator{
+  required uint64 low_pc = 1;
+  required uint64 high_pc = 2;
+  required string reg = 3; // Maybe use an enum here?
+  required sint32 offset = 4;
+}
+
+message Loclist{
+  required uint64 cu_low_pc = 1;
+  repeated Locator locator = 2;
+}

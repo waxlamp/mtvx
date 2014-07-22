@@ -1,0 +1,8 @@
+package MTV.Marino;
+
+message ColorCold {
+  required float r = 1;
+  required float g = 2;
+  required float b = 3;
+  required float a = 4;
+}

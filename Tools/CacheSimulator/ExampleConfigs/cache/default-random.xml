@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<Cache blocksize="32" write_miss_policy="WriteAllocate" replacement_policy="RANDOM">
+  <CacheLevel
+      num_blocks="8"
+      associativity="2"
+      write_policy="WriteThrough"
+      />
+
+  <CacheLevel
+      num_blocks="16"
+      associativity="4"
+      write_policy="WriteBack"
+      />
+</Cache>
